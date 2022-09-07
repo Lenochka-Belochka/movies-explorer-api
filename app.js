@@ -32,5 +32,5 @@ app.use(errors());
 
 app.use(errorHandler);
 
-mongoose.connect(NODE_ENV === 'production' ? DATABASE_URL : DB_URL_ADD);
+mongoose.connect(NODE_ENV === 'production' ? DATABASE_URL : DB_URL_ADD, { useNewUrlParser: true });
 app.listen(PORT);
