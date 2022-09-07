@@ -8,10 +8,11 @@ const { errors } = require('celebrate');
 const router = require('./routes/routes');
 const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { DB_URL_ADD } = require('./utils/constants');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, NODE_ENV, DATABASE_URL } = process.env;
 
-mongoose.connect('mongodb://127.0.0.1:27017/moviesdb', {
+mongoose.connect(NODE_ENV === 'production' ? DATABASE_URL : DB_URL_ADD, {
   useNewUrlParser: true,
 });
 
