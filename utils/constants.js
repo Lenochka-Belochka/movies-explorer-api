@@ -12,7 +12,7 @@ const ERROR_URL_STYLE = 'Некорректный URL.';
 const PROBLEM_WITH_URL = 'Ресурс не найден';
 const ERROR_DATA_FILM_DELETE = 'Фильм невозможно удалить из-за некорректных данных.';
 const ERROR_DATA_FILM = 'Фильм невозможно создать из-за некорректных данных.';
-const DB_URL_ADD = 'mongodb://localhost:27017/moviesdb';
+const DB_URL_ADD = 'mongodb://127.0.0.1:27017/moviesdb';
 
 module.exports = {
   ACCESS_ERROR,
