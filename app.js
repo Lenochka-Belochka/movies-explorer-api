@@ -9,7 +9,6 @@ const { DB_URL_ADD } = require('./utils/constants');
 const router = require('./routes/routes');
 const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const rateLimiter = require('./middlewares/rateLimit');
 
 const { PORT = 3000, NODE_ENV, DATABASE_URL } = process.env;
 
@@ -17,8 +16,6 @@ const app = express();
 app.use(cors());
 
 app.use(requestLogger);
-
-app.use(rateLimiter);
 
 app.use(bodyParser.json());
 
