@@ -5,12 +5,15 @@ const cors = require('cors');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
-const { DB_URL_ADD } = require('./utils/constants');
 const router = require('./routes/routes');
 const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000, NODE_ENV, DATABASE_URL } = process.env;
+const { PORT = 3000 } = process.env;
+
+mongoose.connect('mongodb://127.0.0.1:27017/moviesdb', {
+  useNewUrlParser: true,
+});
 
 const app = express();
 app.use(cors());
@@ -29,5 +32,4 @@ app.use(errors());
 
 app.use(errorHandler);
 
-mongoose.connect(NODE_ENV === 'production' ? DATABASE_URL : DB_URL_ADD, { useNewUrlParser: true });
 app.listen(PORT);
