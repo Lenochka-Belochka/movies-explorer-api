@@ -9,6 +9,8 @@ const router = require('./routes');
 const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DB_URL_ADD } = require('./utils/constants');
+const limiter = require('./middlewares/limiter');
+
 
 const { PORT = 3000, NODE_ENV, DATABASE_URL } = process.env;
 
@@ -24,6 +26,8 @@ app.use(requestLogger);
 app.use(bodyParser.json());
 
 app.use(helmet());
+
+app.use(limiter);
 
 app.use(router);
 
