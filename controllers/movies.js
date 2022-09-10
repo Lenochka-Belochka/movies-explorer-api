@@ -49,13 +49,15 @@ const createMovie = (req, res, next) => {
 
 const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
-    .orFail(() => next(new NotFoundError(MOVIE_NOT_FOUND)))
+    .orFail(() => {
+      throw new NotFoundError(MOVIE_NOT_FOUND);
+    })
     .then((movie) => {
       if (!movie.owner.equals(req.user._id)) {
         next(new NotAllowedError(ACCESS_ERROR));
       } else {
         movie.remove()
-          .then(() => res.send({ message: movie }))
+          .then(() => res.send({ messege: 'Фильм удален' }))
           .catch(next);
       }
     })
@@ -69,7 +71,7 @@ const deleteMovie = (req, res, next) => {
 };
 
 const getMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({ owner: req.user._id })
     .then((movies) => res.send(movies.reverse()))
     .catch(next);
 };
